@@ -14,8 +14,6 @@ public class SnakeTail : MonoBehaviour
     {
         positions.Add(SnakeHead.position);
         AddCircle();
-        AddCircle();
-        AddCircle();
     }
 
     void Update()
@@ -43,5 +41,26 @@ public class SnakeTail : MonoBehaviour
         Transform circle = Instantiate(SnakeHead, positions[positions.Count - 1], Quaternion.identity, transform);
         snakeCircles.Add(circle);
         positions.Add(circle.position);
+    }
+
+    public void RemoveCircle()
+    {
+        Destroy(snakeCircles[0].gameObject);
+        snakeCircles.RemoveAt(0);
+        positions.RemoveAt(1);
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Food")
+        {
+            Destroy(collision.gameObject);
+            /*
+            for (int i = 0; i < _amount; i++)
+            {
+
+            }
+            */
+            AddCircle();
+        }
     }
 }
