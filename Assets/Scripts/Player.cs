@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
 
         previousMousePosition = Input.mousePosition;
     }
+
     public void Moving(Rigidbody rb)
     {
         rb.velocity = Vector3.forward * speed;

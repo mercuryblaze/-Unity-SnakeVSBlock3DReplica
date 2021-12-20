@@ -6,12 +6,16 @@ using UnityEngine.UI;
 public class Pickup : MonoBehaviour
 {
     public Text amountText;
+    public int Amount { get; private set; }
 
-    private int _amount;
+    [SerializeField]
+    private int minAmount = 1;
+    [SerializeField]
+    private int maxAmount = 6;
 
-    private void OnEnable()
+    private void Start()
     {
-        _amount = Random.Range(1, 6);
-        amountText.text = _amount.ToString();
+        Amount = Random.Range(minAmount, maxAmount);
+        amountText.text = Amount.ToString();
     }
 }

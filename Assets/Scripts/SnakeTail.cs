@@ -6,18 +6,23 @@ public class SnakeTail : MonoBehaviour
 {
     public Transform SnakeHead;
     public float CircleDiameter;
+    public float CollisionInterval = 0.2f;
 
     private List<Transform> snakeCircles = new List<Transform>();
     private List<Vector3> positions = new List<Vector3>();
+    private float collisionTimer = 0;
 
     void Start()
     {
         positions.Add(SnakeHead.position);
         AddCircle();
+
     }
 
     void Update()
     {
+        collisionTimer -= Time.deltaTime;
+
         float distance = (SnakeHead.position - positions[0]).magnitude;
 
         if (distance > CircleDiameter)
@@ -45,22 +50,41 @@ public class SnakeTail : MonoBehaviour
 
     public void RemoveCircle()
     {
-        Destroy(snakeCircles[0].gameObject);
-        snakeCircles.RemoveAt(0);
-        positions.RemoveAt(1);
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Food")
+        int lastIndex = snakeCircles.Count - 1;
+        
+        if (snakeCircles.Count == 0)
         {
-            Destroy(collision.gameObject);
-            /*
-            for (int i = 0; i < _amount; i++)
-            {
+            //Здесь проигрываем
+            Destroy(gameObject);
+        }
+        else
+        {
+            Destroy(snakeCircles[lastIndex].gameObject);
+            snakeCircles.RemoveAt(lastIndex);
+            positions.RemoveAt(lastIndex+1);
+        }
+    }
 
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.TryGetComponent(out Pickup pickup))
+        {
+            for (int i = 0; i < pickup.Amount; i++)
+            {
+                AddCircle();
             }
-            */
-            AddCircle();
+            
+            Destroy(other.gameObject);
+        }
+    }
+
+    private void OnCollisionStay(Collision other)
+    {
+        if (collisionTimer <= 0 && other.gameObject.TryGetComponent(out Block block))
+        {
+            block.ApplyDamage();
+            RemoveCircle();
+            collisionTimer = CollisionInterval;
         }
     }
 }
