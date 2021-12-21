@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class SnakeTail : MonoBehaviour
+public class Snake : MonoBehaviour
 {
     public Transform SnakeHead;
     public float CircleDiameter;
     public float CollisionInterval = 0.2f;
+    public Text hitpointText;
+    public Player Player;
+    public int Hitpoints { get; private set; }
 
     private List<Transform> snakeCircles = new List<Transform>();
     private List<Vector3> positions = new List<Vector3>();
@@ -15,6 +19,7 @@ public class SnakeTail : MonoBehaviour
     void Start()
     {
         positions.Add(SnakeHead.position);
+        Hitpoints = 1;
         AddCircle();
 
     }
@@ -43,6 +48,8 @@ public class SnakeTail : MonoBehaviour
 
     public void AddCircle()
     {
+        Hitpoints++;
+        hitpointText.text = Hitpoints.ToString();
         Transform circle = Instantiate(SnakeHead, positions[positions.Count - 1], Quaternion.identity, transform);
         snakeCircles.Add(circle);
         positions.Add(circle.position);
@@ -56,9 +63,12 @@ public class SnakeTail : MonoBehaviour
         {
             //Здесь проигрываем
             Destroy(gameObject);
+            Player.Die();
         }
         else
         {
+            Hitpoints--;
+            hitpointText.text = Hitpoints.ToString();
             Destroy(snakeCircles[lastIndex].gameObject);
             snakeCircles.RemoveAt(lastIndex);
             positions.RemoveAt(lastIndex+1);
@@ -67,9 +77,9 @@ public class SnakeTail : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.TryGetComponent(out Pickup pickup))
+        if (other.gameObject.TryGetComponent(out Food food))
         {
-            for (int i = 0; i < pickup.Amount; i++)
+            for (int i = 0; i < food.Amount; i++)
             {
                 AddCircle();
             }

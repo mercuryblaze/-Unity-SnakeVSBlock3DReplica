@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public Vector3 previousMousePosition;
     public float speed;
     public float sensitivity;
+    public GameState GameState;
     
     private void FixedUpdate()
     {
@@ -31,5 +32,11 @@ public class Player : MonoBehaviour
     public void Moving(Rigidbody rb)
     {
         rb.velocity = Vector3.forward * speed;
+    }
+
+    public void Die()
+    {
+        GameState.OnPlayerDied();
+        player.velocity = Vector3.zero;
     }
 }

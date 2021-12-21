@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Pickup : MonoBehaviour
+public class Food : MonoBehaviour
 {
     public Text amountText;
     public int Amount { get; private set; }
