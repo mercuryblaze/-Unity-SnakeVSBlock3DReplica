@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class Finish : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.collider.TryGetComponent(out Player player))
+        if (other.gameObject.TryGetComponent(out Player Player))
         {
-            player.player.velocity = Vector3.zero;
             Debug.Log("You Won!");
         }
     }

@@ -15,11 +15,6 @@ public class Player : MonoBehaviour
     {
         Moving(player);
 
-        if (Input.GetMouseButtonUp(0))
-        {
-            Moving(player);
-        }
-
         if (Input.GetMouseButton(0))
         {
             Vector3 delta = Input.mousePosition - previousMousePosition;
