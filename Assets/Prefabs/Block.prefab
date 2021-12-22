@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8067421278936487931}
   - component: {fileID: 8067421278936487930}
   - component: {fileID: 8067421278936487686}
+  - component: {fileID: 1660028099}
   m_Layer: 0
   m_Name: Block
   m_TagString: Untagged
@@ -112,6 +113,19 @@ MonoBehaviour:
   hitpointText: {fileID: 8067421279591523955}
   minHitpoints: 1
   maxHitpoints: 10
+--- !u!114 &1660028099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8067421278936487933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e01fa30678c3241abc9999c7d2f433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Block: {fileID: 0}
 --- !u!1 &8067421279591523957
 GameObject:
   m_ObjectHideFlags: 0
