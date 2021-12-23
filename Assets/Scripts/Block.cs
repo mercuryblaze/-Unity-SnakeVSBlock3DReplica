@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class Block : MonoBehaviour
 {
     public Text hitpointText;
+    public ParticleSystem BoomSystem;
+    public AudioPlayer AudioPlayer;
     public int Hitpoints { get; private set; }
 
     [SerializeField]
@@ -25,11 +27,15 @@ public class Block : MonoBehaviour
         hitpointText.text = Hitpoints.ToString();
 
         if (Hitpoints <= 0)
+        {
             Collapse();
+            BoomSystem.Play();
+        }
     }
 
     private void Collapse()
     {
         Destroy(gameObject);
+        AudioPlayer.DestroyBlock();
     }
 }
