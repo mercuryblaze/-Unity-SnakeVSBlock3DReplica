@@ -21,6 +21,8 @@ public class CanvasController : MonoBehaviour
     [SerializeField]
     private Button nextGameButton;
     [SerializeField]
+    private Button exitButton;
+    [SerializeField]
     private Text levelCounter;
     [SerializeField]
     private Text completedLevelCounter;
@@ -32,6 +34,7 @@ public class CanvasController : MonoBehaviour
         startGameButton.onClick.AddListener(StartGame);
         restartGameButton.onClick.AddListener(RestartGame);
         nextGameButton.onClick.AddListener(NextGame);
+        exitButton.onClick.AddListener(() => Application.Quit());
 
         sceneController = FindObjectOfType(typeof(SceneController)) as SceneController;
         levelCounter.text = $"Level : {SceneManager.GetActiveScene().buildIndex + 1}";
