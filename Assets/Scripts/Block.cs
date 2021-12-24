@@ -29,7 +29,6 @@ public class Block : MonoBehaviour
         if (Hitpoints <= 0)
         {
             Collapse();
-            BoomSystem.Play();
         }
     }
 

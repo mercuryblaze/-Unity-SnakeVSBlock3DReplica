@@ -11,6 +11,7 @@ public class Snake : MonoBehaviour
     public Text hitpointText;
     public Player Player;
     public ParticleSystem ParticleSystem;
+    public ParticleSystem BoomSystem;
     public AudioPlayer AudioPlayer;
     public int Hitpoints { get; private set; }
 
@@ -84,7 +85,7 @@ public class Snake : MonoBehaviour
             {
                 AddCircle();
             }
-            
+
             Destroy(other.gameObject);
             AudioPlayer.TakeFoodAudio();
         }
@@ -99,6 +100,9 @@ public class Snake : MonoBehaviour
             RemoveCircle();
             collisionTimer = CollisionInterval;
             AudioPlayer.PlayAudio();
+
+            if (block.Hitpoints == 0)
+                BoomSystem.Play();
         }
     }
 }

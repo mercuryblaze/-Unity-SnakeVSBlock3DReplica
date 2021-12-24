@@ -6,6 +6,7 @@ public class AudioPlayer : MonoBehaviour
 {
     public AudioClip AudioClip;
     public AudioClip AudioClip2;
+    public AudioClip Background;
     [Min(0)]
     public float Volume;
 
@@ -29,5 +30,15 @@ public class AudioPlayer : MonoBehaviour
     public void DestroyBlock()
     {
         Audio.PlayOneShot(AudioClip2);
+    }
+
+    private void OnEnable()
+    {
+        Audio.PlayOneShot(Background);
+    }
+
+    private void OnDisable()
+    {
+        Audio.Stop();
     }
 }
