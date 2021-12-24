@@ -10,18 +10,28 @@ public class Player : MonoBehaviour
     public float speed;
     public float sensitivity;
     public GameState GameState;
-    
+
+    private CanvasController canvasController;
+
+    private void Awake()
+    {
+        canvasController = FindObjectOfType(typeof(CanvasController)) as CanvasController;
+    }
+
     private void FixedUpdate()
     {
-        Moving(player);
-
-        if (Input.GetMouseButton(0))
+        if (canvasController.IsGameActive)
         {
-            Vector3 delta = Input.mousePosition - previousMousePosition;
-            player.velocity = new Vector3(delta.x * sensitivity, 0.0f, speed);
-        }
+            Moving(player);
 
-        previousMousePosition = Input.mousePosition;
+            if (Input.GetMouseButton(0))
+            {
+                Vector3 delta = Input.mousePosition - previousMousePosition;
+                player.velocity = new Vector3(delta.x * sensitivity, 0.0f, speed);
+            }
+
+            previousMousePosition = Input.mousePosition;
+        }
     }
 
     public void Moving(Rigidbody rb)
@@ -31,6 +41,7 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
+        canvasController.LoseGame();
         GameState.OnPlayerDied();
         player.velocity = Vector3.zero;
     }

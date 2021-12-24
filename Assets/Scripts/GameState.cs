@@ -22,7 +22,6 @@ public class GameState : MonoBehaviour
         CurrentState = State.Loss;
         Player.enabled = false;
         Debug.Log("You Loss!");
-        ReloadLevel();
     }
 
     private void ReloadLevel()

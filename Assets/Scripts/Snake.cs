@@ -22,8 +22,12 @@ public class Snake : MonoBehaviour
     void Start()
     {
         positions.Add(SnakeHead.position);
-        Hitpoints = 1;
-        AddCircle();
+        //Hitpoints = 1;
+        int startHitpoints = Progress.SnakeLength != -1 ? Progress.SnakeLength : Progress.InitialSnakeLength;
+        for (int i = 0; i < startHitpoints; i++)
+        {
+            AddCircle();
+        }
     }
 
     void Update()
@@ -51,7 +55,7 @@ public class Snake : MonoBehaviour
     public void AddCircle()
     {
         Hitpoints++;
-        hitpointText.text = Hitpoints.ToString();
+        hitpointText.text = (Hitpoints + 1).ToString();
         Transform circle = Instantiate(SnakeHead, positions[positions.Count - 1], Quaternion.identity, transform);
         snakeCircles.Add(circle);
         positions.Add(circle.position);
@@ -70,7 +74,7 @@ public class Snake : MonoBehaviour
         else
         {
             Hitpoints--;
-            hitpointText.text = Hitpoints.ToString();
+            hitpointText.text = (Hitpoints + 1).ToString();
             Destroy(snakeCircles[lastIndex].gameObject);
             snakeCircles.RemoveAt(lastIndex);
             positions.RemoveAt(lastIndex+1);
@@ -86,6 +90,7 @@ public class Snake : MonoBehaviour
                 AddCircle();
             }
 
+            Progress.SnakeLength = Hitpoints;
             Destroy(other.gameObject);
             AudioPlayer.TakeFoodAudio();
         }
@@ -101,6 +106,7 @@ public class Snake : MonoBehaviour
             collisionTimer = CollisionInterval;
             AudioPlayer.PlayAudio();
 
+            Progress.SnakeLength = Hitpoints;
             if (block.Hitpoints == 0)
                 BoomSystem.Play();
         }

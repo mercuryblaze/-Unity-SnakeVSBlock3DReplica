@@ -34,16 +34,8 @@ public class CustomGradient : MonoBehaviour
     private void Update()
     {
         var blockRenderer = Block.GetComponent<Renderer>();
+        float percent = (float)Block.Hitpoints / Block.MaxHitpoints;
 
-        if (Block.Hitpoints <= 10 && Block.Hitpoints >= 8)
-            blockRenderer.material.SetColor("_Color", gradient.Evaluate(0f));
-        else if (Block.Hitpoints <= 7 && Block.Hitpoints >= 6)
-            blockRenderer.material.SetColor("_Color", gradient.Evaluate(0.2f));
-        else if (Block.Hitpoints <= 5 && Block.Hitpoints >= 4)
-            blockRenderer.material.SetColor("_Color", gradient.Evaluate(0.5f));
-        else if (Block.Hitpoints <= 3 && Block.Hitpoints >= 2)
-            blockRenderer.material.SetColor("_Color", gradient.Evaluate(0.8f));
-        else
-            blockRenderer.material.SetColor("_Color", gradient.Evaluate(1f));
+        blockRenderer.material.SetColor("_Color", gradient.Evaluate(percent));
     }
 }

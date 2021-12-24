@@ -9,6 +9,7 @@ public class Block : MonoBehaviour
     public ParticleSystem BoomSystem;
     public AudioPlayer AudioPlayer;
     public int Hitpoints { get; private set; }
+    public int MaxHitpoints { get { return maxHitpoints;} }
 
     [SerializeField]
     private int minHitpoints = 1;
