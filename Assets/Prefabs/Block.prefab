@@ -8139,5 +8139,5 @@ MonoBehaviour:
   hitpointText: {fileID: 3417725446615801017}
   BoomSystem: {fileID: 1617313965}
   AudioPlayer: {fileID: 0}
-  minHitpoints: 1
-  maxHitpoints: 10
+  minHitpoints: 5
+  maxHitpoints: 25
